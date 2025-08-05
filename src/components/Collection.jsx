@@ -16,13 +16,13 @@ function Collection() {
   useEffect(() => {
     setCollection(getCollection());
   }, []);
-
+ // Function to handle adding a Pokémon to the collection
   const handleRemove = (id) => {
     const updated = collection.filter((p) => p.id !== id);
     setCollection(updated);
     saveToCollection(updated);
   };
-
+  // Function to handle drag and drop reordering
   const handleDragEnd = (result) => {
     if (!result.destination) return;
 

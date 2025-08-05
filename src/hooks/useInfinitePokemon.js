@@ -1,8 +1,6 @@
-// hooks/useInfinitePokemon.js
-
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-
+// Function to fetch Pokémon data with pagination
 const fetchPokemon = async ({ pageParam = 0 }) => {
   const limit = 6;
   const offset = pageParam * limit;
@@ -26,7 +24,7 @@ const fetchPokemon = async ({ pageParam = 0 }) => {
     hasMore: response.data.next !== null,
   };
 };
-
+// Custom hook to use infinite query for Pokémon data
 export const useInfinitePokemon = () =>
   useInfiniteQuery({
     queryKey: ["pokemon"],

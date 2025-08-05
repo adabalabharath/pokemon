@@ -7,9 +7,11 @@ import { keyframes } from "@emotion/react";
 
 export default function PokemonList() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useInfinitePokemon();
-  const loaderRef = useRef();
+    useInfinitePokemon(); // Custom hook to fetch paginated Pokémon data
 
+  // Ref to observe the loading spinner
+  const loaderRef = useRef();
+  // Animation for the loading spinner
   const spin = keyframes`
   from {
     transform: rotate(0deg);
@@ -18,7 +20,7 @@ export default function PokemonList() {
     transform: rotate(360deg);
   }
 `;
-
+  // Effect to observe the loading spinner and fetch more Pokémon when it comes into view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -84,7 +86,7 @@ export default function PokemonList() {
         flexWrap: "wrap",
         justifyContent: "center",
         backgroundColor: "#665bdf",
-        paddingX: 10,
+        px: { xs: 2, sm: 4, md: 6, lg: 10 },
       }}
     >
       {data?.pages.map((page) =>
