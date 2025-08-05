@@ -12,25 +12,24 @@ import Chip from "@mui/material/Chip";
 export default function PokemonCard({ pokemon }) {
   const [exists, setExists] = useState(false);
 
- const handleAdd = () => {
-  const current = getCollection();
-  const updated = [...current, pokemon];
-  saveToCollection(updated);
-  setExists(true);
-};
+  const handleAdd = () => {
+    const current = getCollection();
+    const updated = [...current, pokemon];
+    saveToCollection(updated);
+    setExists(true);
+  };
 
-const handleRemove = (id) => {
-  const current = getCollection();
-  const updated = current.filter((p) => p.id !== id);
-  saveToCollection(updated);
-  setExists(false); 
-};
+  const handleRemove = (id) => {
+    const current = getCollection();
+    const updated = current.filter((p) => p.id !== id);
+    saveToCollection(updated);
+    setExists(false);
+  };
 
-useEffect(() => {
-  const current = getCollection();
-  setExists(current.some((p) => p.id === pokemon.id));
-}, [pokemon.id]);
-
+  useEffect(() => {
+    const current = getCollection();
+    setExists(current.some((p) => p.id === pokemon.id));
+  }, [pokemon.id]);
 
   return (
     <Card
@@ -83,29 +82,28 @@ useEffect(() => {
       <Typography variant="subtitle1" fontFamily={"fantasy"}>
         {pokemon.name}
       </Typography>
-   
-        {pokemon.types.map((t, i) => (
-          <>
-            <Chip
-              sx={{
-                textTransform: "none",
-                borderRadius: 5,
-                ml: 1,
-                mr: 1,
-                pointerEvents: "none",
-                backgroundColor: typeColors[t.type.name] || "#ccc",
-                color: "#fff",
-                fontFamily: "monospace",
-                fontWeight: "bold",
-                padding: "0.2rem 0.5rem",
-                fontSize: "1.0rem",
-              }}
-              key={t.type.name + "-" + i}
-              label={t.type.name}
-            />
-          </>
-        ))}
-   
+
+      {pokemon.types.map((t, i) => (
+        <>
+          <Chip
+            sx={{
+              textTransform: "none",
+              borderRadius: 5,
+              m: 1,
+              pointerEvents: "none",
+              backgroundColor: typeColors[t.type.name] || "#ccc",
+              color: "#fff",
+              fontFamily: "monospace",
+              fontWeight: "bold",
+              padding: "0.2rem 0.5rem",
+              fontSize: "1.0rem",
+            }}
+            key={t.type.name + "-" + i}
+            label={t.type.name}
+          />
+        </>
+      ))}
+
       <Grid container justifyContent={"space-between"} p={2}>
         <Grid item container direction={"column"} alignItems="center">
           <Typography
