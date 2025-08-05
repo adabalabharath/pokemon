@@ -11,28 +11,26 @@ import Chip from "@mui/material/Chip";
 
 export default function PokemonCard({ pokemon }) {
   const [exists, setExists] = useState(false);
-  const [collection, setCollection] = useState(getCollection());
 
-  useEffect(() => {
-    setCollection(getCollection());
-  }, []);
+ const handleAdd = () => {
+  const current = getCollection();
+  const updated = [...current, pokemon];
+  saveToCollection(updated);
+  setExists(true);
+};
 
-  const handleAdd = () => {
-    const updated = [...collection, pokemon];
-    setCollection(updated);
-    saveToCollection(updated);
-  };
-  useEffect(() => {
-    collection.some((p) => p.id === pokemon.id)
-      ? setExists(true)
-      : setExists(false);
-  }, [collection, pokemon.id]);
+const handleRemove = (id) => {
+  const current = getCollection();
+  const updated = current.filter((p) => p.id !== id);
+  saveToCollection(updated);
+  setExists(false); 
+};
 
-  const handleRemove = (id) => {
-    const updated = collection.filter((p) => p.id !== id);
-    setCollection(updated);
-    saveToCollection(updated);
-  };
+useEffect(() => {
+  const current = getCollection();
+  setExists(current.some((p) => p.id === pokemon.id));
+}, [pokemon.id]);
+
 
   return (
     <Card
@@ -85,7 +83,7 @@ export default function PokemonCard({ pokemon }) {
       <Typography variant="subtitle1" fontFamily={"fantasy"}>
         {pokemon.name}
       </Typography>
-      <p>
+   
         {pokemon.types.map((t, i) => (
           <>
             <Chip
@@ -107,7 +105,7 @@ export default function PokemonCard({ pokemon }) {
             />
           </>
         ))}
-      </p>
+   
       <Grid container justifyContent={"space-between"} p={2}>
         <Grid item container direction={"column"} alignItems="center">
           <Typography
